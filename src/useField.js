@@ -49,8 +49,8 @@ function useField<FormValues: FormValuesShape>(
 
   const configRef = useLatest(config)
 
-  const register = (callback: FieldState => void) =>
-    form.registerField(name, callback, subscription, {
+  const register = () =>
+    form.registerField(name, undefined, subscription, {
       afterSubmit,
       beforeSubmit: () => {
         const {
@@ -81,31 +81,16 @@ function useField<FormValues: FormValuesShape>(
 
   // synchronously register and unregister to query field state for our subscription on first render
   const [state, setState] = React.useState<FieldState>((): FieldState => {
-    let initialState: FieldState = {}
-
-    // temporarily disable destroyOnUnregister
-    const destroyOnUnregister = form.destroyOnUnregister
-    form.destroyOnUnregister = false
-
-    register(state => {
-      initialState = state
-    })()
-
-    // return destroyOnUnregister to its original value
-    form.destroyOnUnregister = destroyOnUnregister
-
+    const initialState: FieldState = form.getFieldState(name)
+    if (initialState === undefined) {
+      register()
+      return form.getFieldState(name)
+    }
     return initialState
   })
 
   React.useEffect(
-    () =>
-      register(state => {
-        if (firstRender.current) {
-          firstRender.current = false
-        } else {
-          setState(state)
-        }
-      }),
+    () => form.subscribeToExistingField(name, setState, subscription),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       name,
