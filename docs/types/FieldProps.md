@@ -78,7 +78,7 @@ React.ComponentType<FieldRenderProps> | 'input' | 'select' | 'textarea'`
 
 Optional. If you are not using `'input'`, `'select`' or `'textarea'`, it is recommended that you use [`children`](#children) or [`render`](#render).
 
-Either the `string` name of one of the default HTML inputs, or a component that is given [`FieldRenderProps`](#fieldrenderprops) as props, children and render props, as well as any non-API props passed into the `<Field/>` component. For example, if you did...
+Either the `string` name of one of the default HTML inputs, or a component that is given [`FieldRenderProps`](FieldRenderProps) as props, children and render props, as well as any non-API props passed into the `<Field/>` component. For example, if you did...
 
 <!-- prettier-ignore -->
 ```tsx
@@ -188,7 +188,7 @@ A function that takes the value from the input and name of the field and convert
 
 Optional. (if you specify [`component`](#component) or [`children`](#children))
 
-A render function that is given [`FieldRenderProps`](types/FieldRenderProps), as well as any non-API props passed into the `<Field/>` component. For example, if you did...
+A render function that is given [`FieldRenderProps`](FieldRenderProps), as well as any non-API props passed into the `<Field/>` component. For example, if you did...
 
 ```tsx
 <Field
@@ -205,7 +205,7 @@ Note that if you specify `render` _and_ [`children`](#children), `render` will b
 
 Related:
 
-- [`FieldRenderProps`](types/FormRenderProps)
+- [`FieldRenderProps`](FormRenderProps)
 
 ## `subscription`
 
